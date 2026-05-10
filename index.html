@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Multiplication Grid</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --cell-w:38px;
+  --cell-h:38px;
+  --label-area:114px;
+
+  /* Blues */
+  --blue-deep:#0f172a;
+  --blue-dark:#1e3a5f;
+  --blue-mid:#1d4ed8;
+  --blue-bright:#3b82f6;
+  --blue-light:#93c5fd;
+  --blue-pale:#dbeafe;
+  --blue-ghost:#eff6ff;
+
+  --ink:#0f172a;
+  --paper:#ffffff;
+  --muted:#64748b;
+  --border:#bfdbfe;
+  --thick:#1d4ed8;
+  --cell-bg:#ffffff;
+  --grp-bg:linear-gradient(135deg,#1e3a5f,#1d4ed8);
+  --sum-bg:#dbeafe;
+  --lbl-bg:#f0f7ff;
+  --section-glow:0 0 0 2px #bfdbfe;
+}
+
+/* PAGE */
+body{
+  background:linear-gradient(160deg,#0f172a 0%,#1e3a5f 40%,#1d4ed8 100%);
+  min-height:100vh;
+  font-family:'Inter',sans-serif;
+  color:var(--ink);
+  padding:2rem 1rem 5rem;
+}
+.page{max-width:1400px;margin:0 auto}
+
+/* HEADER */
+.hdr{margin-bottom:2rem;text-align:center}
+.hdr h1{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2rem,5vw,3rem);
+  font-weight:700;
+  color:#ffffff;
+  letter-spacing:-.02em;
+  text-shadow:0 2px 20px rgba(59,130,246,.5);
+}
+.hdr p{
+  font-size:14px;
+  color:#93c5fd;
+  margin-top:6px;
+  letter-spacing:.04em;
+}
+
+/* GLASS CARD wrapper for all content */
+.card{
+  background:rgba(255,255,255,.97);
+  border-radius:20px;
+  padding:2rem 2rem 2.5rem;
+  box-shadow:0 8px 40px rgba(15,23,42,.4),0 0 0 1px rgba(255,255,255,.15);
+}
+
+/* HOW IT WORKS */
+.help{
+  background:var(--blue-ghost);
+  border:1.5px solid var(--blue-pale);
+  border-radius:10px;
+  padding:1rem 1.4rem;
+  margin-bottom:1.8rem;
+}
+.help h3{
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--blue-mid);margin-bottom:8px;
+}
+.help ol{
+  font-size:12.5px;line-height:1.8;padding-left:1.3rem;
+  color:var(--muted);columns:2;column-gap:2rem;
+}
+@media(max-width:600px){.help ol{columns:1}}
+
+/* INPUT PANEL */
+.panel{
+  display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap;
+  background:var(--blue-ghost);
+  border:1.5px solid var(--blue-pale);
+  padding:1rem 1.4rem;margin-bottom:2rem;border-radius:12px;
+}
+.ig{display:flex;flex-direction:column;gap:4px}
+.ig label{font-size:10px;letter-spacing:.1em;color:var(--blue-mid);font-weight:700;text-transform:uppercase}
+.ig input{
+  width:110px;height:44px;
+  border:2px solid var(--blue-bright);
+  background:#fff;color:var(--ink);
+  font-family:'Inter',sans-serif;font-size:22px;font-weight:700;
+  text-align:center;border-radius:8px;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.ig input:focus{border-color:var(--blue-mid);box-shadow:0 0 0 3px #bfdbfe}
+.sym{font-family:'Fraunces',serif;font-size:30px;padding-bottom:4px;color:var(--blue-mid)}
+.btn{
+  height:44px;padding:0 28px;
+  background:linear-gradient(135deg,#1d4ed8,#3b82f6);
+  color:#fff;border:none;font-size:13px;font-weight:700;
+  letter-spacing:.06em;cursor:pointer;border-radius:8px;
+  text-transform:uppercase;
+  box-shadow:0 4px 14px rgba(29,78,216,.35);
+  transition:opacity .15s,transform .1s;
+}
+.btn:hover{opacity:.9;transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.em{font-size:13px;color:#dc2626;font-weight:600}
+
+/* SECTION WRAPPERS */
+.section{
+  border:2px solid var(--blue-pale);
+  border-radius:12px;
+  padding:12px 12px 4px 12px;
+  margin-bottom:1.4rem;
+  background:#fff;
+  box-shadow:0 2px 12px rgba(29,78,216,.06);
+}
+.section-lbl{
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blue-mid);margin-bottom:6px;text-align:center;
+}
+.xaxis-title{
+  font-size:12px;font-weight:600;text-align:center;margin-bottom:8px;
+  color:var(--ink);letter-spacing:.04em;
+}
+.xaxis-title em{font-weight:400;color:var(--muted);font-style:normal}
+.asm-h{font-size:12px;margin-bottom:8px;color:var(--muted);font-style:italic;text-align:center}
+.tline{text-align:center;font-size:12px;color:var(--muted);padding:8px 0 4px;font-style:italic}
+
+/* ── TABLES ── */
+.mg{
+  border-collapse:collapse;
+  font-family:'Inter',sans-serif;
+  background:var(--cell-bg);
+  table-layout:fixed;
+  border:2.5px solid var(--blue-mid);
+  border-radius:4px;
+}
+
+.mg td{
+  border:1px solid #bfdbfe;
+  text-align:center;
+  vertical-align:middle;
+  padding:0;
+  height:var(--cell-h);
+  width:var(--cell-w);
+  font-size:14px;
+  font-weight:500;
+  background:var(--cell-bg);
+  color:var(--ink);
+  overflow:hidden;
+}
+
+/* GROUP HEADER cells — blue gradient */
+.mg .grp-h{
+  font-weight:800;font-size:13px;letter-spacing:.04em;
+  background:linear-gradient(135deg,#1e3a5f,#1d4ed8);
+  color:#fff;border-color:#1d4ed8;
+}
+
+/* label cells */
+.mg .lbl{
+  font-weight:700;font-size:12px;letter-spacing:.02em;
+  background:var(--lbl-bg);color:var(--ink);
+}
+
+/* SUM row */
+.mg .sum-c{
+  background:#dbeafe;color:#1e40af;font-weight:700;
+}
+
+/* Final answer cells */
+.mg .final-c{
+  background:linear-gradient(135deg,#1d4ed8,#3b82f6);
+  color:#fff;font-weight:800;font-size:16px;
+}
+
+/* thick separators */
+.mg .thick-l{border-left:2.5px solid var(--blue-mid) !important}
+.mg .thick-r{border-right:2.5px solid var(--blue-mid) !important}
+.mg .no-bord{border:none !important;background:transparent !important}
+
+/* LAYOUT */
+.stack-block{display:flex;align-items:flex-start;gap:20px;justify-content:center;flex-wrap:nowrap;overflow-x:auto}
+.sb-main{flex-shrink:0;display:flex;flex-direction:column}
+
+/* Y-AXIS + LEGEND */
+.sb-side{display:flex;align-items:flex-start;gap:24px;flex-shrink:0;padding-top:38px}
+.yaxis{
+  writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);
+  font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  align-self:center;color:var(--blue-mid);
+}
+.legend{
+  border:2px solid var(--blue-mid);
+  background:#fff;min-width:110px;border-radius:8px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(29,78,216,.12);
+}
+.legend .lh{
+  font-size:11px;font-weight:700;text-align:center;letter-spacing:.08em;text-transform:uppercase;
+  padding:7px 12px;color:#fff;
+  background:linear-gradient(135deg,#1e3a5f,#1d4ed8);
+}
+.legend .lr{
+  font-size:13px;text-align:center;
+  border-top:1px solid #bfdbfe;
+  padding:6px 12px;color:var(--ink);font-weight:500;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <h1>Multiplication Grid</h1>
+  <p>Break big numbers into small pieces — every cell is a times-table fact</p>
+</div>
+
+<div class="card">
+
+  <div class="help">
+    <h3>How it works</h3>
+    <ol>
+      <li>Enter X (up to 4 digits) and Y (up to 2 digits).</li>
+      <li>X is broken by place value: K=1000, H=100, T=10, U=1.</li>
+      <li>Each grid cell = one digit of (X-piece × Y-piece).</li>
+      <li>Add each column downward to get the SUM row.</li>
+      <li>Copy each SUM into the assembler at the correct place value.</li>
+      <li>Add all Row Totals to get the Final Answer.</li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <div class="ig"><label>X (1–9999)</label><input type="number" id="xv" min="1" max="9999" value="9999"/></div>
+    <span class="sym">×</span>
+    <div class="ig"><label>Y (1–99)</label><input type="number" id="yv" min="1" max="99" value="99"/></div>
+    <button class="btn" onclick="go()">Calculate</button>
+    <span class="em" id="em"></span>
+  </div>
+
+  <div id="out" style="display:none">
+  <div class="stack-block">
+    <div class="sb-main">
+
+      <!-- STEP 1 -->
+      <div class="section">
+        <div class="section-lbl">Step 1 — Multiplication Grid</div>
+        <div class="xaxis-title">X-AXIS <em>· break X by place value</em></div>
+        <div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:6px">
+          <table class="mg" id="gt"></table>
+          <div class="sb-side">
+            <div class="yaxis">Y-AXIS</div>
+            <div class="legend">
+              <div class="lh">Legend</div>
+              <div class="lr">K = 1000</div>
+              <div class="lr">H = 100</div>
+              <div class="lr">T = 10</div>
+              <div class="lr">U = 1</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="section">
+        <div class="section-lbl">Step 2 — Assemble by place value</div>
+        <div class="asm-h">Copy each SUM into the matching column, then add across each row.</div>
+        <table class="mg" id="at" style="margin-bottom:6px"></table>
+      </div>
+
+      <!-- FINAL ANSWER -->
+      <div class="section">
+        <div class="section-lbl">Final Answer</div>
+        <table class="mg" id="ft"></table>
+        <p class="tline">If you know your 1–10 times tables, you already know how to multiply any two numbers.</p>
+      </div>
+
+    </div>
+  </div>
+  </div>
+
+</div><!-- /card -->
+</div><!-- /page -->
+
+<script>
+const GRP=[
+  {name:'K',w:6,mult:1000},
+  {name:'H',w:5,mult:100},
+  {name:'T',w:4,mult:10},
+  {name:'U',w:3,mult:1}
+];
+const PLACES=[
+  {label:'100K',factor:100000},
+  {label:'10K', factor:10000},
+  {label:'K',   factor:1000},
+  {label:'H',   factor:100},
+  {label:'T',   factor:10},
+  {label:'U',   factor:1}
+];
+const GRP_SEQ={
+  K:['100K','10K','K','H','T','U'],
+  H:['10K','K','H','T','U'],
+  T:['K','H','T','U'],
+  U:['H','T','U']
+};
+
+function colgroup(){
+  let c='<colgroup>';
+  for(let i=0;i<21;i++) c+=`<col style="width:var(--cell-w)"/>`;
+  return c+'</colgroup>';
+}
+function digs(n,w){return n.toString().padStart(w,'0').split('')}
+
+function go(){
+  const xv=parseInt(document.getElementById('xv').value)||0;
+  const yv=parseInt(document.getElementById('yv').value)||0;
+  const em=document.getElementById('em');
+  if(xv<1||xv>9999||yv<1||yv>99){
+    em.textContent='X: 1–9999, Y: 1–99';
+    document.getElementById('out').style.display='none';
+    return;
+  }
+  em.textContent='';
+
+  const xd=digs(xv,4).map(Number);
+  const xp={K:xd[0],H:xd[1],T:xd[2],U:xd[3]};
+  const yd=digs(yv,2).map(Number);
+  const yT=yd[0],yU=yd[1];
+
+  // ── GRID ──
+  let g=colgroup()+'<tbody>';
+
+  // ROW 1: K/H/T/U group headers ON TOP
+  g+='<tr>';
+  g+='<td class="no-bord" colspan="3"></td>';
+  GRP.forEach(grp=>{
+    g+=`<td class="grp-h thick-l" colspan="${grp.w}">${grp.name}</td>`;
+  });
+  g+='</tr>';
+
+  // ROW 2: X broken
+  g+='<tr>';
+  g+='<td class="lbl" colspan="3" style="text-align:center">X broken →</td>';
+  GRP.forEach(grp=>{
+    const v=xp[grp.name]*grp.mult;
+    digs(v,grp.w).forEach((c,i)=>{
+      g+=`<td class="${i===0?'thick-l':''}">${c}</td>`;
+    });
+  });
+  g+='</tr>';
+
+  // ROW 3: T row
+  const tyd=digs(yT*10,2);
+  g+='<tr>';
+  g+=`<td class="lbl" style="font-weight:700;text-align:center">T</td>`;
+  g+=`<td style="text-align:center">${tyd[0]}</td>`;
+  g+=`<td class="thick-r" style="text-align:center">${tyd[1]}</td>`;
+  GRP.forEach(grp=>{
+    const prod=xp[grp.name]*grp.mult*yT*10;
+    digs(prod,grp.w).forEach((c,i)=>{
+      g+=`<td class="${i===0?'thick-l':''}">${prod===0?'':c}</td>`;
+    });
+  });
+  g+='</tr>';
+
+  // ROW 4: U row
+  const uyd=digs(yU,2);
+  g+='<tr>';
+  g+=`<td class="lbl" style="font-weight:700;text-align:center">U</td>`;
+  g+=`<td style="text-align:center">${uyd[0]}</td>`;
+  g+=`<td class="thick-r" style="text-align:center">${uyd[1]}</td>`;
+  GRP.forEach(grp=>{
+    const prod=xp[grp.name]*grp.mult*yU;
+    g+=`<td class="thick-l"></td>`;
+    digs(prod,grp.w-1).forEach(c=>{
+      g+=`<td>${prod===0?'':c}</td>`;
+    });
+  });
+  g+='</tr>';
+
+  // ROW 5: SUM
+  g+='<tr>';
+  g+='<td class="lbl sum-c" colspan="3" style="font-weight:800;text-align:center">SUM</td>';
+  GRP.forEach(grp=>{
+    const s=xp[grp.name]*grp.mult*yv;
+    digs(s,grp.w).forEach((c,i)=>{
+      g+=`<td class="sum-c${i===0?' thick-l':''}">${c}</td>`;
+    });
+  });
+  g+='</tr></tbody>';
+  document.getElementById('gt').innerHTML=g;
+
+  // ── ASSEMBLER ──
+  const sums={};
+  GRP.forEach(grp=>{sums[grp.name]=xp[grp.name]*grp.mult*yv;});
+
+  const activePL=PLACES.filter(pl=>
+    GRP.some(grp=>{
+      if(!GRP_SEQ[grp.name].includes(pl.label)) return false;
+      return Math.floor(sums[grp.name]/pl.factor)%10>0;
+    })
+  );
+
+  let a=colgroup()+'<tbody>';
+  a+='<tr>';
+  a+='<td class="lbl grp-h" colspan="3" style="text-align:center">Place</td>';
+  GRP.forEach(grp=>{
+    a+=`<td class="grp-h thick-l" colspan="${grp.w}" style="text-align:center">from ${grp.name}</td>`;
+  });
+  a+=`<td class="grp-h thick-l" colspan="6" style="text-align:center">Row Total</td>`;
+  a+='</tr>';
+
+  activePL.forEach(pl=>{
+    a+='<tr>';
+    a+=`<td class="lbl" colspan="3" style="font-weight:700;text-align:center">${pl.label}</td>`;
+    GRP.forEach(grp=>{
+      const seq=GRP_SEQ[grp.name];
+      const matchIdx=seq.indexOf(pl.label);
+      const matchDig=matchIdx===-1?-1:Math.floor(sums[grp.name]/pl.factor)%10;
+      for(let i=0;i<grp.w;i++){
+        const cls=i===0?'thick-l':'';
+        if(matchIdx===-1||i<matchIdx||matchDig===0){
+          a+=`<td class="${cls}"></td>`;
+        } else if(i===matchIdx){
+          a+=`<td class="${cls}">${matchDig}</td>`;
+        } else {
+          a+=`<td class="${cls}">0</td>`;
+        }
+      }
+    });
+    let rt=0;
+    GRP.forEach(grp=>{
+      if(GRP_SEQ[grp.name].includes(pl.label))
+        rt+=Math.floor(sums[grp.name]/pl.factor)%10*pl.factor;
+    });
+    const rts=rt.toString();
+    const blanks=6-rts.length;
+    for(let i=0;i<6;i++){
+      const cls=i===0?'thick-l':'';
+      a+=`<td class="${cls}">${i<blanks?'':rts[i-blanks]}</td>`;
+    }
+    a+='</tr>';
+  });
+  a+='</tbody>';
+  document.getElementById('at').innerHTML=a;
+
+  // ── FINAL ANSWER ──
+  const grand=xv*yv;
+  const gs=grand.toString();
+  const gb=6-gs.length;
+  let f=colgroup()+'<tbody><tr>';
+  f+=`<td class="lbl" colspan="21" style="font-weight:800;font-size:13px;text-align:center;letter-spacing:.05em;color:#1d4ed8">FINAL ANSWER = add all ROW TOTALS above</td>`;
+  for(let i=0;i<6;i++){
+    const cls=i===0?'thick-l':'';
+    if(i<gb){
+      f+=`<td class="${cls}"></td>`;
+    } else {
+      f+=`<td class="final-c${i===0?' thick-l':''}">${gs[i-gb]}</td>`;
+    }
+  }
+  f+='</tr></tbody>';
+  document.getElementById('ft').innerHTML=f;
+
+  document.getElementById('out').style.display='block';
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Enter') go();});
+go();
+</script>
+</body>
+</html>
