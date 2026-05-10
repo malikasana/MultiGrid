@@ -2,7 +2,9 @@
 
 **A visual multiplication tool that breaks any number into place-value steps — every cell is just a times-table fact.**
 
-🌐 **Live Site:** https://multigrid-d104.onrender.com
+🌐 **Live Site:** https://multigrid-d104.onrender.com  
+📄 **Demo (Completed Example):** https://drive.google.com/file/d/1Mw3WlpnvfyC1o3meVX3XDbli_Ujehr64/view?usp=drive_link  
+📝 **Practice Sheet (Blank):** https://drive.google.com/file/d/1tV6R5Zvv8KP4SkQ-_NDU4KY7eASKqgRE/view?usp=drive_link  
 
 ---
 
@@ -22,11 +24,11 @@ If you know your 1–10 times tables, you already know how to multiply any two n
 
 ## Files
 
-| File | Purpose |
-|------|---------|
-| `index.html` | The live interactive web tool — enter any numbers and it fills the grid automatically |
-| `MG_FINAL.pdf` | A completed example showing `9999 × 99` worked out by hand — use this to understand how the grid works |
-| `MG_FINAL_USABLE.pdf` | A blank practice sheet — print it out and fill it in yourself |
+| File | Purpose | Link |
+|------|---------|------|
+| `index.html` | The live interactive web tool — enter any numbers and it fills the grid automatically | [Live Site](https://multigrid-d104.onrender.com) |
+| `MG_FINAL.pdf` | Completed example showing `9999 × 99` worked out by hand — use this to understand how the grid works | [View](https://drive.google.com/file/d/1Mw3WlpnvfyC1o3meVX3XDbli_Ujehr64/view?usp=drive_link) |
+| `MG_FINAL_USABLE.pdf` | Blank practice sheet — print it out and fill it in yourself | [View](https://drive.google.com/file/d/1tV6R5Zvv8KP4SkQ-_NDU4KY7eASKqgRE/view?usp=drive_link) |
 
 ---
 
@@ -45,7 +47,7 @@ Add all Row Totals together. That's your answer.
 
 ## Purpose
 
-This tool was built to make long multiplication visual and approachable. It's designed for:
+This tool was built to make long multiplication visual and approachable. It is designed for:
 - Students learning place-value multiplication
 - Teachers who want a structured worksheet format
 - Anyone who wants to see exactly why long multiplication works
@@ -60,4 +62,4 @@ Plain HTML, CSS, and JavaScript — no frameworks, no dependencies beyond a Goog
 
 ## License
 
-Free to use for educational purposes.
+MIT License — free to use for educational purposes.
