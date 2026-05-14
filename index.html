@@ -610,7 +610,7 @@ function buildTourSteps(){
       title:'Breaking X into place values',
       msg:`X = <strong>${_xv}</strong> is split by place value into four pieces:<br>
         <strong>K = ${_xp.K}×1000 &nbsp;·&nbsp; H = ${_xp.H}×100 &nbsp;·&nbsp; T = ${_xp.T}×10 &nbsp;·&nbsp; U = ${_xp.U}×1</strong><br><br>
-        Each group of columns in the grid represents one piece. The purple row shows these pieces now.`,
+        Each group of columns in the grid represents one piece. The <span style="color:#eab308">yellow</span> row shows these pieces now.`,
       section:'sec-grid',
       hl:()=>{
         qs('[data-xpiece]').forEach(td=>td.classList.add('hl-xpiece'));
