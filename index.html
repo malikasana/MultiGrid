@@ -11,9 +11,8 @@
 :root{
   --cell-w:38px;
   --cell-h:38px;
+  --cell-fs:14px;
   --label-area:114px;
-
-  /* Blues */
   --blue-deep:#0f172a;
   --blue-dark:#1e3a5f;
   --blue-mid:#1d4ed8;
@@ -21,87 +20,109 @@
   --blue-light:#93c5fd;
   --blue-pale:#dbeafe;
   --blue-ghost:#eff6ff;
-
   --ink:#0f172a;
   --paper:#ffffff;
   --muted:#64748b;
   --border:#bfdbfe;
   --thick:#1d4ed8;
   --cell-bg:#ffffff;
-  --grp-bg:linear-gradient(135deg,#1e3a5f,#1d4ed8);
   --sum-bg:#dbeafe;
   --lbl-bg:#f0f7ff;
-  --section-glow:0 0 0 2px #bfdbfe;
 }
 
-/* PAGE */
 body{
   background:linear-gradient(160deg,#0f172a 0%,#1e3a5f 40%,#1d4ed8 100%);
-  min-height:100vh;
-  font-family:'Inter',sans-serif;
-  color:var(--ink);
+  min-height:100vh;font-family:'Inter',sans-serif;color:var(--ink);
   padding:2rem 1rem 5rem;
 }
 .page{max-width:1400px;margin:0 auto}
 
-/* HEADER */
 .hdr{margin-bottom:2rem;text-align:center}
 .hdr h1{
-  font-family:'Fraunces',serif;
-  font-size:clamp(2rem,5vw,3rem);
-  font-weight:700;
-  color:#ffffff;
-  letter-spacing:-.02em;
+  font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3rem);
+  font-weight:700;color:#ffffff;letter-spacing:-.02em;
   text-shadow:0 2px 20px rgba(59,130,246,.5);
 }
-.hdr p{
-  font-size:14px;
-  color:#93c5fd;
-  margin-top:6px;
-  letter-spacing:.04em;
-}
+.hdr p{font-size:14px;color:#93c5fd;margin-top:6px;letter-spacing:.04em;}
 
-/* GLASS CARD wrapper for all content */
 .card{
-  background:rgba(255,255,255,.97);
-  border-radius:20px;
+  background:rgba(255,255,255,.97);border-radius:20px;
   padding:2rem 2rem 2.5rem;
   box-shadow:0 8px 40px rgba(15,23,42,.4),0 0 0 1px rgba(255,255,255,.15);
 }
 
-/* HOW IT WORKS */
 .help{
-  background:var(--blue-ghost);
-  border:1.5px solid var(--blue-pale);
-  border-radius:10px;
-  padding:1rem 1.4rem;
-  margin-bottom:1.8rem;
+  background:var(--blue-ghost);border:1.5px solid var(--blue-pale);
+  border-radius:10px;padding:1rem 1.4rem;margin-bottom:1.8rem;
 }
-.help h3{
-  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--blue-mid);margin-bottom:8px;
-}
-.help ol{
-  font-size:12.5px;line-height:1.8;padding-left:1.3rem;
-  color:var(--muted);columns:2;column-gap:2rem;
-}
+.help h3{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:8px;}
+.help ol{font-size:12.5px;line-height:1.8;padding-left:1.3rem;color:var(--muted);columns:2;column-gap:2rem;}
 @media(max-width:600px){.help ol{columns:1}}
 
-/* INPUT PANEL */
+/* ── RESPONSIVE CELL SIZING ── */
+@media(max-width:480px){
+  :root{--cell-w:20px;--cell-h:24px;--cell-fs:8px;}
+}
+@media(min-width:481px) and (max-width:640px){
+  :root{--cell-w:24px;--cell-h:28px;--cell-fs:10px;}
+}
+@media(min-width:641px) and (max-width:860px){
+  :root{--cell-w:30px;--cell-h:33px;--cell-fs:12px;}
+}
+
+/* ── MOBILE LAYOUT ── */
+@media(max-width:640px){
+  body{padding:1rem .5rem 8rem;}
+  .card{padding:1rem 1rem 1.5rem;border-radius:14px;}
+  .hdr{margin-bottom:1.2rem;}
+  .hdr p{font-size:12px;}
+  .help{padding:.75rem 1rem;margin-bottom:1.2rem;}
+  .help ol{font-size:11.5px;line-height:1.7;}
+  .panel{padding:.75rem 1rem;gap:.6rem;margin-bottom:1.4rem;}
+  .ig input{width:90px;height:40px;font-size:18px;}
+  .btn,.btn-tour{height:40px;font-size:11px;padding:0 14px;}
+  .section{padding:8px 6px 4px;}
+  .xaxis-title{font-size:10px;}
+  .asm-h{font-size:10px;}
+
+  .grid-container{flex-wrap:wrap;justify-content:center;}
+  .grid-side{flex-direction:row;gap:12px;margin-top:8px;}
+  .yaxis-side{writing-mode:horizontal-tb;transform:none;font-size:10px;padding:6px 12px;}
+  .legend-inline{min-width:0;display:flex;flex-direction:row;border-radius:6px;overflow:hidden;}
+  .legend-inline .lh{padding:5px 8px;font-size:9px;white-space:nowrap;}
+  .legend-inline .lr{padding:5px 8px;font-size:10px;border-top:none;border-left:1px solid #bfdbfe;}
+
+  .grid-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;}
+
+  .mg .grp-h{font-size:9px;}
+  .mg .lbl{font-size:9px;}
+  .mg .sum-c{font-size:9px;}
+  .mg .final-c{font-size:12px;}
+
+  #tour-box{
+    bottom:0;left:0;right:0;
+    width:100%;border-radius:16px 16px 0 0;
+    transform:translateY(30px);
+    padding:14px 16px 20px;
+  }
+  #tour-box.visible{transform:translateY(0);}
+  #tour-title{font-size:15px;}
+  #tour-msg{font-size:12px;line-height:1.6;}
+  .tnav-btn{height:32px;padding:0 12px;font-size:11px;}
+  .tour-dots{display:none;}
+}
+
 .panel{
   display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap;
-  background:var(--blue-ghost);
-  border:1.5px solid var(--blue-pale);
+  background:var(--blue-ghost);border:1.5px solid var(--blue-pale);
   padding:1rem 1.4rem;margin-bottom:2rem;border-radius:12px;
 }
 .ig{display:flex;flex-direction:column;gap:4px}
 .ig label{font-size:10px;letter-spacing:.1em;color:var(--blue-mid);font-weight:700;text-transform:uppercase}
 .ig input{
-  width:110px;height:44px;
-  border:2px solid var(--blue-bright);
-  background:#fff;color:var(--ink);
-  font-family:'Inter',sans-serif;font-size:22px;font-weight:700;
-  text-align:center;border-radius:8px;outline:none;
+  width:110px;height:44px;border:2px solid var(--blue-bright);
+  background:#fff;color:var(--ink);font-family:'Inter',sans-serif;
+  font-size:22px;font-weight:700;text-align:center;border-radius:8px;outline:none;
   transition:border-color .2s,box-shadow .2s;
 }
 .ig input:focus{border-color:var(--blue-mid);box-shadow:0 0 0 3px #bfdbfe}
@@ -110,114 +131,189 @@ body{
   height:44px;padding:0 28px;
   background:linear-gradient(135deg,#1d4ed8,#3b82f6);
   color:#fff;border:none;font-size:13px;font-weight:700;
-  letter-spacing:.06em;cursor:pointer;border-radius:8px;
-  text-transform:uppercase;
-  box-shadow:0 4px 14px rgba(29,78,216,.35);
-  transition:opacity .15s,transform .1s;
+  letter-spacing:.06em;cursor:pointer;border-radius:8px;text-transform:uppercase;
+  box-shadow:0 4px 14px rgba(29,78,216,.35);transition:opacity .15s,transform .1s;
 }
 .btn:hover{opacity:.9;transform:translateY(-1px)}
 .btn:active{transform:translateY(0)}
+.btn-tour{
+  height:44px;padding:0 20px;
+  background:linear-gradient(135deg,#7c3aed,#a855f7);
+  color:#fff;border:none;font-size:13px;font-weight:700;
+  letter-spacing:.06em;cursor:pointer;border-radius:8px;text-transform:uppercase;
+  box-shadow:0 4px 14px rgba(124,58,237,.35);transition:opacity .15s,transform .1s;
+  display:flex;align-items:center;gap:7px;
+}
+.btn-tour:hover{opacity:.9;transform:translateY(-1px)}
+.btn-tour svg{width:16px;height:16px;flex-shrink:0}
 .em{font-size:13px;color:#dc2626;font-weight:600}
 
-/* SECTION WRAPPERS */
 .section{
-  border:2px solid var(--blue-pale);
-  border-radius:12px;
-  padding:12px 12px 4px 12px;
-  margin-bottom:1.4rem;
-  background:#fff;
-  box-shadow:0 2px 12px rgba(29,78,216,.06);
+  border:2px solid var(--blue-pale);border-radius:12px;
+  padding:12px 12px 4px 12px;margin-bottom:1.4rem;
+  background:#fff;box-shadow:0 2px 12px rgba(29,78,216,.06);
+  transition:box-shadow .3s,border-color .3s;
 }
-.section-lbl{
-  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--blue-mid);margin-bottom:6px;text-align:center;
+.section.tour-focus{
+  border-color:#7c3aed !important;
+  box-shadow:0 0 0 4px rgba(124,58,237,.18),0 4px 20px rgba(124,58,237,.12) !important;
 }
-.xaxis-title{
-  font-size:12px;font-weight:600;text-align:center;margin-bottom:8px;
-  color:var(--ink);letter-spacing:.04em;
-}
+.section-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:6px;text-align:center;}
+.xaxis-title{font-size:12px;font-weight:600;text-align:center;margin-bottom:8px;color:var(--ink);letter-spacing:.04em;}
 .xaxis-title em{font-weight:400;color:var(--muted);font-style:normal}
 .asm-h{font-size:12px;margin-bottom:8px;color:var(--muted);font-style:italic;text-align:center}
 .tline{text-align:center;font-size:12px;color:var(--muted);padding:8px 0 4px;font-style:italic}
 
-/* ── TABLES ── */
+/* TABLES */
 .mg{
-  border-collapse:collapse;
-  font-family:'Inter',sans-serif;
-  background:var(--cell-bg);
-  table-layout:fixed;
-  border:2.5px solid var(--blue-mid);
-  border-radius:4px;
+  border-collapse:collapse;font-family:'Inter',sans-serif;
+  background:var(--cell-bg);table-layout:fixed;
+  border:2.5px solid var(--blue-mid);border-radius:4px;
 }
-
 .mg td{
-  border:1px solid #bfdbfe;
-  text-align:center;
-  vertical-align:middle;
-  padding:0;
-  height:var(--cell-h);
-  width:var(--cell-w);
-  font-size:14px;
-  font-weight:500;
-  background:var(--cell-bg);
-  color:var(--ink);
-  overflow:hidden;
+  border:1px solid #bfdbfe;text-align:center;vertical-align:middle;
+  padding:0;height:var(--cell-h);width:var(--cell-w);
+  font-size:var(--cell-fs);font-weight:500;background:var(--cell-bg);color:var(--ink);overflow:hidden;
+  transition:background .3s,color .3s,transform .25s,box-shadow .25s;
 }
-
-/* GROUP HEADER cells — blue gradient */
 .mg .grp-h{
   font-weight:800;font-size:13px;letter-spacing:.04em;
-  background:linear-gradient(135deg,#1e3a5f,#1d4ed8);
-  color:#fff;border-color:#1d4ed8;
+  background:linear-gradient(135deg,#1e3a5f,#1d4ed8);color:#fff;border-color:#1d4ed8;
 }
-
-/* label cells */
-.mg .lbl{
-  font-weight:700;font-size:12px;letter-spacing:.02em;
-  background:var(--lbl-bg);color:var(--ink);
-}
-
-/* SUM row */
-.mg .sum-c{
-  background:#dbeafe;color:#1e40af;font-weight:700;
-}
-
-/* Final answer cells */
-.mg .final-c{
-  background:linear-gradient(135deg,#1d4ed8,#3b82f6);
-  color:#fff;font-weight:800;font-size:16px;
-}
-
-/* thick separators */
+.mg .lbl{font-weight:700;font-size:12px;letter-spacing:.02em;background:var(--lbl-bg);color:var(--ink);}
+.mg .sum-c{background:#dbeafe;color:#1e40af;font-weight:700;}
+.mg .xbrk-c{background:#fef3c7;color:#78350f;font-weight:600;}
+.mg .final-c{background:linear-gradient(135deg,#1d4ed8,#3b82f6);color:#fff;font-weight:800;font-size:16px;}
 .mg .thick-l{border-left:2.5px solid var(--blue-mid) !important}
 .mg .thick-r{border-right:2.5px solid var(--blue-mid) !important}
 .mg .no-bord{border:none !important;background:transparent !important}
 
-/* LAYOUT */
+/* HIGHLIGHT STATES */
+.mg td.hl-xpiece{background:#fef9c3 !important;color:#713f12 !important;font-weight:800 !important;transform:scale(1.07);box-shadow:inset 0 0 0 2px #eab308;}
+.mg td.hl-ypiece{background:#fce7f3 !important;color:#831843 !important;font-weight:800 !important;transform:scale(1.07);box-shadow:inset 0 0 0 2px #ec4899;}
+.mg td.hl-product{background:#dcfce7 !important;color:#14532d !important;font-weight:800 !important;transform:scale(1.05);box-shadow:inset 0 0 0 2px #22c55e;}
+.mg td.hl-col{background:#fff7ed !important;color:#7c2d12 !important;font-weight:700 !important;}
+.mg td.hl-sum{background:#a78bfa !important;color:#fff !important;font-weight:800 !important;transform:scale(1.07);box-shadow:inset 0 0 0 2px #7c3aed;}
+.mg td.hl-assemble{background:#fde68a !important;color:#78350f !important;font-weight:800 !important;box-shadow:inset 0 0 0 2px #d97706;}
+.mg td.hl-final{background:linear-gradient(135deg,#7c3aed,#a855f7) !important;color:#fff !important;font-weight:800 !important;transform:scale(1.1);box-shadow:0 4px 16px rgba(124,58,237,.45);}
+
+/* GRID CONTAINER WITH Y-AXIS AND LEGEND HORIZONTALLY */
+.grid-container{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  overflow-x:auto;
+  padding-bottom:4px;
+}
+.grid-tables{
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  width:fit-content;
+}
+.grid-side{
+  display:flex;
+  flex-direction:row;
+  gap:12px;
+  flex-shrink:0;
+  align-items:center;
+  padding-top:38px;
+}
+.yaxis-side{
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  transform:rotate(180deg);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#0f172a;
+  background:var(--lbl-bg);
+  padding:12px 6px;
+  border-radius:8px;
+  border:1px solid var(--blue-pale);
+  white-space:nowrap;
+  text-align:center;
+}
+.legend-inline{
+  border:2px solid var(--blue-mid);
+  background:#fff;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 2px 10px rgba(29,78,216,.12);
+  min-width:110px;
+}
+.legend-inline .lh{
+  font-size:11px;
+  font-weight:700;
+  text-align:center;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:7px 12px;
+  color:#fff;
+  background:linear-gradient(135deg,#1e3a5f,#1d4ed8);
+}
+.legend-inline .lr{
+  font-size:13px;
+  text-align:center;
+  border-top:1px solid #bfdbfe;
+  padding:6px 12px;
+  color:var(--ink);
+  font-weight:500;
+}
+
 .stack-block{display:flex;align-items:flex-start;gap:20px;justify-content:center;flex-wrap:nowrap;overflow-x:auto}
 .sb-main{flex-shrink:0;display:flex;flex-direction:column}
 
-/* Y-AXIS + LEGEND */
-.sb-side{display:flex;align-items:flex-start;gap:24px;flex-shrink:0;padding-top:38px}
-.yaxis{
-  writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);
-  font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  align-self:center;color:var(--blue-mid);
+/* ── TOUR PANEL ── */
+#tour-box{
+  position:fixed;
+  bottom:28px;left:50%;transform:translateX(-50%) translateY(24px);
+  width:min(500px,92vw);
+  background:#1e1b4b;
+  border:2px solid #7c3aed;
+  border-radius:16px;
+  padding:18px 22px 15px;
+  box-shadow:0 12px 48px rgba(0,0,0,.55),0 0 0 1px rgba(124,58,237,.25);
+  z-index:1001;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s,transform .3s;
 }
-.legend{
-  border:2px solid var(--blue-mid);
-  background:#fff;min-width:110px;border-radius:8px;overflow:hidden;
-  box-shadow:0 2px 10px rgba(29,78,216,.12);
+#tour-box.visible{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:all;}
+#tour-progress{height:3px;border-radius:2px;background:#312e81;margin-bottom:13px;overflow:hidden;}
+#tour-progress-fill{height:100%;background:#a78bfa;transition:width .4s;}
+#tour-step-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#a78bfa;margin-bottom:5px;}
+#tour-title{font-family:'Fraunces',serif;font-size:17px;color:#fff;margin-bottom:8px;line-height:1.3;}
+#tour-msg{font-size:13px;color:#c4b5fd;line-height:1.75;margin-bottom:14px;}
+.tour-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.tour-dots{display:flex;gap:5px;align-items:center;}
+.tour-dot{width:7px;height:7px;border-radius:50%;background:#312e81;transition:background .25s,transform .25s;}
+.tour-dot.active{background:#a78bfa;transform:scale(1.45);}
+.tnav{display:flex;gap:8px;}
+.tnav-btn{
+  height:34px;padding:0 16px;border:none;border-radius:7px;
+  font-size:12px;font-weight:700;letter-spacing:.05em;cursor:pointer;text-transform:uppercase;
+  transition:opacity .15s,transform .1s;
 }
-.legend .lh{
-  font-size:11px;font-weight:700;text-align:center;letter-spacing:.08em;text-transform:uppercase;
-  padding:7px 12px;color:#fff;
-  background:linear-gradient(135deg,#1e3a5f,#1d4ed8);
+.tnav-btn:hover{opacity:.85;transform:translateY(-1px)}
+#tour-prev{background:#312e81;color:#c4b5fd;}
+#tour-next{background:#7c3aed;color:#fff;}
+#tour-close{
+  position:absolute;top:11px;right:13px;
+  background:none;border:none;cursor:pointer;
+  font-size:17px;color:#6d28d9;line-height:1;
+  transition:color .15s;
 }
-.legend .lr{
-  font-size:13px;text-align:center;
-  border-top:1px solid #bfdbfe;
-  padding:6px 12px;color:var(--ink);font-weight:500;
+#tour-close:hover{color:#c4b5fd;}
+
+@media(max-width:640px){
+  .grid-container{gap:10px;flex-wrap:wrap;justify-content:center;}
+  .grid-side{flex-direction:row;gap:10px;padding-top:0;margin-top:8px;}
+  .yaxis-side{writing-mode:horizontal-tb;transform:none;font-size:10px;padding:8px 16px;}
+  .legend-inline{min-width:0;display:flex;flex-direction:row;}
+  .legend-inline .lh{padding:6px 10px;font-size:9px;}
+  .legend-inline .lr{padding:6px 10px;font-size:10px;border-top:none;border-left:1px solid #bfdbfe;}
 }
 </style>
 </head>
@@ -248,6 +344,12 @@ body{
     <span class="sym">×</span>
     <div class="ig"><label>Y (1–99)</label><input type="number" id="yv" min="1" max="99" value="99"/></div>
     <button class="btn" onclick="go()">Calculate</button>
+    <button class="btn-tour" id="tour-btn" onclick="startTour()" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      Guided Tour
+    </button>
     <span class="em" id="em"></span>
   </div>
 
@@ -255,15 +357,20 @@ body{
   <div class="stack-block">
     <div class="sb-main">
 
-      <!-- STEP 1 -->
-      <div class="section">
+      <div class="section" id="sec-grid">
         <div class="section-lbl">Step 1 — Multiplication Grid</div>
         <div class="xaxis-title">X-AXIS <em>· break X by place value</em></div>
-        <div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:6px">
-          <table class="mg" id="gt"></table>
-          <div class="sb-side">
-            <div class="yaxis">Y-AXIS</div>
-            <div class="legend">
+        
+        <!-- BOTH Y-axis AND Legend are inside this container, side by side horizontally -->
+        <div class="grid-container">
+          <div class="grid-tables">
+            <table class="mg" id="gt-header"></table>
+            <table class="mg" id="gt-rows"></table>
+            <table class="mg" id="gt-sum"></table>
+          </div>
+          <div class="grid-side">
+            <div class="yaxis-side">Y-AXIS</div>
+            <div class="legend-inline">
               <div class="lh">Legend</div>
               <div class="lr">K = 1000</div>
               <div class="lr">H = 100</div>
@@ -274,17 +381,15 @@ body{
         </div>
       </div>
 
-      <!-- STEP 2 -->
-      <div class="section">
+      <div class="section" id="sec-asm">
         <div class="section-lbl">Step 2 — Assemble by place value</div>
         <div class="asm-h">Copy each SUM into the matching column, then add across each row.</div>
-        <table class="mg" id="at" style="margin-bottom:6px"></table>
+        <div class="grid-scroll"><table class="mg" id="at" style="margin-bottom:6px"></table></div>
       </div>
 
-      <!-- FINAL ANSWER -->
-      <div class="section">
+      <div class="section" id="sec-final">
         <div class="section-lbl">Final Answer</div>
-        <table class="mg" id="ft"></table>
+        <div class="grid-scroll"><table class="mg" id="ft"></table></div>
         <p class="tline">If you know your 1–10 times tables, you already know how to multiply any two numbers.</p>
       </div>
 
@@ -292,8 +397,23 @@ body{
   </div>
   </div>
 
-</div><!-- /card -->
-</div><!-- /page -->
+</div>
+</div>
+
+<div id="tour-box">
+  <button id="tour-close" onclick="endTour()">✕</button>
+  <div id="tour-progress"><div id="tour-progress-fill"></div></div>
+  <div id="tour-step-label"></div>
+  <div id="tour-title"></div>
+  <div id="tour-msg"></div>
+  <div class="tour-nav">
+    <div class="tour-dots" id="tour-dots"></div>
+    <div class="tnav">
+      <button class="tnav-btn" id="tour-prev" onclick="tourStep(-1)">← Back</button>
+      <button class="tnav-btn" id="tour-next" onclick="tourStep(1)">Next →</button>
+    </div>
+  </div>
+</div>
 
 <script>
 const GRP=[
@@ -324,6 +444,8 @@ function colgroup(){
 }
 function digs(n,w){return n.toString().padStart(w,'0').split('')}
 
+let _xv=9999,_yv=99,_xp={},_yT=9,_yU=9,_sums={};
+
 function go(){
   const xv=parseInt(document.getElementById('xv').value)||0;
   const yv=parseInt(document.getElementById('yv').value)||0;
@@ -331,154 +453,296 @@ function go(){
   if(xv<1||xv>9999||yv<1||yv>99){
     em.textContent='X: 1–9999, Y: 1–99';
     document.getElementById('out').style.display='none';
+    document.getElementById('tour-btn').style.display='none';
+    endTour();
     return;
   }
   em.textContent='';
-
+  _xv=xv;_yv=yv;
   const xd=digs(xv,4).map(Number);
-  const xp={K:xd[0],H:xd[1],T:xd[2],U:xd[3]};
+  _xp={K:xd[0],H:xd[1],T:xd[2],U:xd[3]};
   const yd=digs(yv,2).map(Number);
-  const yT=yd[0],yU=yd[1];
+  _yT=yd[0];_yU=yd[1];
+  GRP.forEach(g=>{_sums[g.name]=_xp[g.name]*g.mult*yv;});
 
-  // ── GRID ──
-  let g=colgroup()+'<tbody>';
-
-  // ROW 1: K/H/T/U group headers ON TOP
-  g+='<tr>';
-  g+='<td class="no-bord" colspan="3"></td>';
-  GRP.forEach(grp=>{
-    g+=`<td class="grp-h thick-l" colspan="${grp.w}">${grp.name}</td>`;
-  });
-  g+='</tr>';
-
-  // ROW 2: X broken
-  g+='<tr>';
-  g+='<td class="lbl" colspan="3" style="text-align:center">X broken →</td>';
-  GRP.forEach(grp=>{
-    const v=xp[grp.name]*grp.mult;
-    digs(v,grp.w).forEach((c,i)=>{
-      g+=`<td class="${i===0?'thick-l':''}">${c}</td>`;
+  // TABLE 1: headers + X broken
+  let g1=colgroup()+'<tbody>';
+  g1+='<tr><td class="grp-h thick-l" colspan="3">Place</td>';
+  GRP.forEach(g=>{g1+=`<td class="grp-h thick-l" colspan="${g.w}">${g.name}</td>`;});
+  g1+='</tr>';
+  g1+='<tr><td class="lbl sum-c" colspan="3" style="font-weight:800;text-align:center">X broken →</td>';
+  GRP.forEach(g=>{
+    const v=_xp[g.name]*g.mult;
+    digs(v,g.w).forEach((c,i)=>{
+      g1+=`<td class="sum-c${i===0?' thick-l':''}" data-grp="${g.name}" data-xpiece="1">${c}</td>`;
     });
   });
-  g+='</tr>';
+  g1+='</tr></tbody>';
+  document.getElementById('gt-header').innerHTML=g1;
 
-  // ROW 3: T row
-  const tyd=digs(yT*10,2);
-  g+='<tr>';
-  g+=`<td class="lbl" style="font-weight:700;text-align:center">T</td>`;
-  g+=`<td style="text-align:center">${tyd[0]}</td>`;
-  g+=`<td class="thick-r" style="text-align:center">${tyd[1]}</td>`;
-  GRP.forEach(grp=>{
-    const prod=xp[grp.name]*grp.mult*yT*10;
-    digs(prod,grp.w).forEach((c,i)=>{
-      g+=`<td class="${i===0?'thick-l':''}">${prod===0?'':c}</td>`;
+  // TABLE 2: T and U rows
+  const tyd=digs(_yT*10,2);
+  const uyd=digs(_yU,2);
+  let g2=colgroup()+'<tbody>';
+  g2+='<tr>';
+  g2+=`<td class="lbl" style="font-weight:700;text-align:center">T</td>`;
+  g2+=`<td style="text-align:center" data-ypiece="T">${tyd[0]}</td>`;
+  g2+=`<td class="thick-r" style="text-align:center" data-ypiece="T">${tyd[1]}</td>`;
+  GRP.forEach(g=>{
+    const prod=_xp[g.name]*g.mult*_yT*10;
+    digs(prod,g.w).forEach((c,i)=>{
+      g2+=`<td class="${i===0?'thick-l':''}" data-grp="${g.name}" data-row="T">${prod===0?'':c}</td>`;
     });
   });
-  g+='</tr>';
-
-  // ROW 4: U row
-  const uyd=digs(yU,2);
-  g+='<tr>';
-  g+=`<td class="lbl" style="font-weight:700;text-align:center">U</td>`;
-  g+=`<td style="text-align:center">${uyd[0]}</td>`;
-  g+=`<td class="thick-r" style="text-align:center">${uyd[1]}</td>`;
-  GRP.forEach(grp=>{
-    const prod=xp[grp.name]*grp.mult*yU;
-    g+=`<td class="thick-l"></td>`;
-    digs(prod,grp.w-1).forEach(c=>{
-      g+=`<td>${prod===0?'':c}</td>`;
+  g2+='</tr><tr>';
+  g2+=`<td class="lbl" style="font-weight:700;text-align:center">U</td>`;
+  g2+=`<td style="text-align:center" data-ypiece="U">${uyd[0]}</td>`;
+  g2+=`<td class="thick-r" style="text-align:center" data-ypiece="U">${uyd[1]}</td>`;
+  GRP.forEach(g=>{
+    const prod=_xp[g.name]*g.mult*_yU;
+    g2+=`<td class="thick-l" data-grp="${g.name}" data-row="U"></td>`;
+    digs(prod,g.w-1).forEach(c=>{
+      g2+=`<td data-grp="${g.name}" data-row="U">${prod===0?'':c}</td>`;
     });
   });
-  g+='</tr>';
+  g2+='</tr></tbody>';
+  document.getElementById('gt-rows').innerHTML=g2;
 
-  // ROW 5: SUM
-  g+='<tr>';
-  g+='<td class="lbl sum-c" colspan="3" style="font-weight:800;text-align:center">SUM</td>';
-  GRP.forEach(grp=>{
-    const s=xp[grp.name]*grp.mult*yv;
-    digs(s,grp.w).forEach((c,i)=>{
-      g+=`<td class="sum-c${i===0?' thick-l':''}">${c}</td>`;
+  // TABLE 3: SUM
+  let g3=colgroup()+'<tbody><tr>';
+  g3+='<td class="lbl sum-c" colspan="3" style="font-weight:800;text-align:center">SUM</td>';
+  GRP.forEach(g=>{
+    const s=_xp[g.name]*g.mult*yv;
+    digs(s,g.w).forEach((c,i)=>{
+      g3+=`<td class="sum-c${i===0?' thick-l':''}" data-grp="${g.name}" data-sumcell="1">${c}</td>`;
     });
   });
-  g+='</tr></tbody>';
-  document.getElementById('gt').innerHTML=g;
+  g3+='</tr></tbody>';
+  document.getElementById('gt-sum').innerHTML=g3;
 
-  // ── ASSEMBLER ──
-  const sums={};
-  GRP.forEach(grp=>{sums[grp.name]=xp[grp.name]*grp.mult*yv;});
-
+  // ASSEMBLER
   const activePL=PLACES.filter(pl=>
-    GRP.some(grp=>{
-      if(!GRP_SEQ[grp.name].includes(pl.label)) return false;
-      return Math.floor(sums[grp.name]/pl.factor)%10>0;
+    GRP.some(g=>{
+      if(!GRP_SEQ[g.name].includes(pl.label)) return false;
+      return Math.floor(_sums[g.name]/pl.factor)%10>0;
     })
   );
-
   let a=colgroup()+'<tbody>';
   a+='<tr>';
   a+='<td class="lbl grp-h" colspan="3" style="text-align:center">Place</td>';
-  GRP.forEach(grp=>{
-    a+=`<td class="grp-h thick-l" colspan="${grp.w}" style="text-align:center">from ${grp.name}</td>`;
-  });
+  GRP.forEach(g=>{a+=`<td class="grp-h thick-l" colspan="${g.w}" style="text-align:center">from ${g.name}</td>`;});
   a+=`<td class="grp-h thick-l" colspan="6" style="text-align:center">Row Total</td>`;
   a+='</tr>';
-
   activePL.forEach(pl=>{
     a+='<tr>';
     a+=`<td class="lbl" colspan="3" style="font-weight:700;text-align:center">${pl.label}</td>`;
-    GRP.forEach(grp=>{
-      const seq=GRP_SEQ[grp.name];
+    GRP.forEach(g=>{
+      const seq=GRP_SEQ[g.name];
       const matchIdx=seq.indexOf(pl.label);
-      const matchDig=matchIdx===-1?-1:Math.floor(sums[grp.name]/pl.factor)%10;
-      for(let i=0;i<grp.w;i++){
+      const matchDig=matchIdx===-1?-1:Math.floor(_sums[g.name]/pl.factor)%10;
+      for(let i=0;i<g.w;i++){
         const cls=i===0?'thick-l':'';
+        const attr=`data-asm-pl="${pl.label}" data-asm-grp="${g.name}"`;
         if(matchIdx===-1||i<matchIdx||matchDig===0){
-          a+=`<td class="${cls}"></td>`;
+          a+=`<td class="${cls}" ${attr}></td>`;
         } else if(i===matchIdx){
-          a+=`<td class="${cls}">${matchDig}</td>`;
+          a+=`<td class="${cls}" ${attr}>${matchDig}</td>`;
         } else {
-          a+=`<td class="${cls}">0</td>`;
+          a+=`<td class="${cls}" ${attr}>0</td>`;
         }
       }
     });
     let rt=0;
-    GRP.forEach(grp=>{
-      if(GRP_SEQ[grp.name].includes(pl.label))
-        rt+=Math.floor(sums[grp.name]/pl.factor)%10*pl.factor;
+    GRP.forEach(g=>{
+      if(GRP_SEQ[g.name].includes(pl.label))
+        rt+=Math.floor(_sums[g.name]/pl.factor)%10*pl.factor;
     });
     const rts=rt.toString();
     const blanks=6-rts.length;
     for(let i=0;i<6;i++){
       const cls=i===0?'thick-l':'';
-      a+=`<td class="${cls}">${i<blanks?'':rts[i-blanks]}</td>`;
+      a+=`<td class="${cls}" data-rowtotal="1">${i<blanks?'':rts[i-blanks]}</td>`;
     }
     a+='</tr>';
   });
   a+='</tbody>';
   document.getElementById('at').innerHTML=a;
 
-  // ── FINAL ANSWER ──
-  const grand=xv*yv;
+  // FINAL ANSWER
+  const grand=_xv*_yv;
   const gs=grand.toString();
   const gb=6-gs.length;
   let f=colgroup()+'<tbody><tr>';
   f+=`<td class="lbl" colspan="21" style="font-weight:800;font-size:13px;text-align:center;letter-spacing:.05em;color:#1d4ed8">FINAL ANSWER = add all ROW TOTALS above</td>`;
   for(let i=0;i<6;i++){
     const cls=i===0?'thick-l':'';
-    if(i<gb){
-      f+=`<td class="${cls}"></td>`;
-    } else {
-      f+=`<td class="final-c${i===0?' thick-l':''}">${gs[i-gb]}</td>`;
-    }
+    if(i<gb){f+=`<td class="${cls}"></td>`;}
+    else{f+=`<td class="final-c${i===0?' thick-l':''}" data-finalcell="1">${gs[i-gb]}</td>`;}
   }
   f+='</tr></tbody>';
   document.getElementById('ft').innerHTML=f;
 
   document.getElementById('out').style.display='block';
+  document.getElementById('tour-btn').style.display='flex';
 }
 
 document.addEventListener('keydown',e=>{if(e.key==='Enter') go();});
 go();
+
+// TOUR LOGIC
+let tourIdx=0,tourSteps=[];
+
+function buildTourSteps(){
+  const activeGrp=GRP.find(g=>_xp[g.name]>0)||GRP[3];
+  const dgn=activeGrp.name;
+  const dxv=_xp[dgn]*activeGrp.mult;
+  const dPT=dxv*_yT*10;
+  const dPU=dxv*_yU;
+
+  return [
+    {
+      title:'Welcome to the Multiplication Grid!',
+      msg:`We're about to walk through how <strong>${_xv} × ${_yv} = ${_xv*_yv}</strong> is calculated — step by step.<br><br>Every cell you see is just a single digit from a basic times-table. No hard maths, just structure.<br><br>Hit <strong>Next</strong> to begin.`,
+      section:null,
+      hl:()=>{}
+    },
+    {
+      title:'Breaking X into place values',
+      msg:`X = <strong>${_xv}</strong> is split by place value into four pieces:<br>
+        <strong>K = ${_xp.K}×1000 &nbsp;·&nbsp; H = ${_xp.H}×100 &nbsp;·&nbsp; T = ${_xp.T}×10 &nbsp;·&nbsp; U = ${_xp.U}×1</strong><br><br>
+        Each group of columns in the grid represents one piece. The purple row shows these pieces now.`,
+      section:'sec-grid',
+      hl:()=>{
+        qs('[data-xpiece]').forEach(td=>td.classList.add('hl-xpiece'));
+      }
+    },
+    {
+      title:'Y is split into Tens (T) and Units (U)',
+      msg:`Y = <strong>${_yv}</strong> is broken into:<br>
+        <strong>T = ${_yT}×10 = ${_yT*10}</strong> — shown in the top row<br>
+        <strong>U = ${_yU}×1 = ${_yU}</strong> — shown in the bottom row<br><br>
+        These are the <span style="color:#ec4899">pink</span> cells on the left side of the multiplication rows.`,
+      section:'sec-grid',
+      hl:()=>{
+        qs('[data-ypiece]').forEach(td=>td.classList.add('hl-ypiece'));
+      }
+    },
+    {
+      title:`Multiplying — each cell is one simple fact`,
+      msg:`Take the <strong>${dgn}-piece</strong> (${dxv}) as an example:<br>
+        · ${dxv} × ${_yT*10} = <strong>${dPT}</strong> (T row, ${dgn} group)<br>
+        · ${dxv} × ${_yU} = <strong>${dPU}</strong> (U row, ${dgn} group)<br><br>
+        The result is written digit-by-digit across the group's columns. <span style="color:#22c55e">Green</span> cells show these products.`,
+      section:'sec-grid',
+      hl:()=>{
+        qs(`[data-grp="${dgn}"][data-row]`).forEach(td=>td.classList.add('hl-product'));
+        qs('[data-ypiece]').forEach(td=>td.classList.add('hl-ypiece'));
+      }
+    },
+    {
+      title:'Adding down each column → the SUM row',
+      msg:`The T-row and U-row digits in each column are added straight downward.<br><br>
+        For the <strong>${dgn} group</strong>: ${dPT} + ${dPU} = <strong>${dPT+dPU}</strong><br><br>
+        The <span style="color:#a78bfa">purple</span> SUM row holds the result for each group. This is the column total.`,
+      section:'sec-grid',
+      hl:()=>{
+        qs(`[data-grp="${dgn}"][data-row]`).forEach(td=>td.classList.add('hl-col'));
+        qs(`[data-grp="${dgn}"][data-sumcell]`).forEach(td=>td.classList.add('hl-sum'));
+      }
+    },
+    {
+      title:'Assembling — moving digits to the right place',
+      msg:`Each SUM digit is copied into the assembler table below, placed in the <strong>correct place-value column</strong>.<br><br>
+        A digit from the K-group that represents hundreds gets placed in the "from K" column, H row — so all hundreds line up together.<br><br>
+        <span style="color:#d97706">Amber</span> cells show the placed digits.`,
+      section:'sec-asm',
+      hl:()=>{
+        qs('[data-asm-pl]').forEach(td=>{
+          if(td.textContent.trim()) td.classList.add('hl-assemble');
+        });
+      }
+    },
+    {
+      title:'Adding across → Row Totals',
+      msg:`Each row of the assembler adds its digits together across to produce a <strong>Row Total</strong> on the right.<br><br>
+        Each Row Total represents one place-value level's full contribution to the answer.<br><br>
+        <span style="color:#a78bfa">Purple</span> cells show the Row Totals now.`,
+      section:'sec-asm',
+      hl:()=>{
+        qs('[data-rowtotal]').forEach(td=>{
+          if(td.textContent.trim()) td.classList.add('hl-sum');
+        });
+      }
+    },
+    {
+      title:`${_xv} × ${_yv} = ${_xv*_yv} 🎉`,
+      msg:`Add all the Row Totals together — and there it is: <strong>${_xv} × ${_yv} = ${_xv*_yv}</strong>.<br><br>
+        Every step was just a times-table fact you already know. The grid simply organises those facts so the place values stay correct.<br><br>
+        Try different numbers and run the tour again anytime!`,
+      section:'sec-final',
+      hl:()=>{
+        qs('[data-finalcell]').forEach(td=>td.classList.add('hl-final'));
+      }
+    }
+  ];
+}
+
+function qs(sel){return document.querySelectorAll(sel)}
+
+function clearHL(){
+  qs('.mg td').forEach(td=>{
+    td.classList.remove('hl-xpiece','hl-ypiece','hl-product','hl-col','hl-sum','hl-assemble','hl-final');
+  });
+  qs('.section').forEach(s=>s.classList.remove('tour-focus'));
+}
+
+function renderTourStep(){
+  const step=tourSteps[tourIdx];
+  const total=tourSteps.length;
+
+  document.getElementById('tour-step-label').textContent=`Step ${tourIdx+1} of ${total}`;
+  document.getElementById('tour-title').innerHTML=step.title;
+  document.getElementById('tour-msg').innerHTML=step.msg;
+  document.getElementById('tour-progress-fill').style.width=`${((tourIdx+1)/total)*100}%`;
+
+  const dots=document.getElementById('tour-dots');
+  dots.innerHTML='';
+  for(let i=0;i<total;i++){
+    const d=document.createElement('div');
+    d.className='tour-dot'+(i===tourIdx?' active':'');
+    dots.appendChild(d);
+  }
+
+  document.getElementById('tour-prev').style.visibility=tourIdx===0?'hidden':'visible';
+  document.getElementById('tour-next').textContent=tourIdx===total-1?'Finish ✓':'Next →';
+
+  clearHL();
+  if(step.section){
+    const sec=document.getElementById(step.section);
+    sec.classList.add('tour-focus');
+    sec.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+  setTimeout(()=>step.hl(),180);
+}
+
+function startTour(){
+  tourSteps=buildTourSteps();
+  tourIdx=0;
+  document.getElementById('tour-box').classList.add('visible');
+  renderTourStep();
+}
+
+function tourStep(dir){
+  tourIdx+=dir;
+  if(tourIdx>=tourSteps.length){endTour();return;}
+  if(tourIdx<0)tourIdx=0;
+  renderTourStep();
+}
+
+function endTour(){
+  document.getElementById('tour-box').classList.remove('visible');
+  setTimeout(clearHL,300);
+}
 </script>
 </body>
 </html>
